@@ -1,16 +1,17 @@
 package com.denovoapp.entities;
 
 public class Main {
-    public static void main(String[] args) {
-        Builder builder = new Builder();
-        Build build = builder.generateBuild();
-        Manager manager = new Manager(build.getLift());
-        manager.managementPassengers();
-        while(true){
-            build.getLift().moveNextFloor();
-            manager.managementPassengers();
-            System.out.println(build.toString());
-        }
 
+    public static void main(String[] args) {
+        Curator curator = new Curator(); //Create our curator
+        curator.generateBuilderAndBuildingWithLift(); //generate Builder, Building and Lift
+        curator.managementPassengers(); // start manage passengers in build
+        System.out.println(curator.getBuilding().toString()); //show information about first floor
+        while(true){
+            curator.getLift().moveNextFloor(); // move our lift further
+            curator.managementPassengers(); // managing our passengers on the floor and inside lift
+            System.out.println(curator.getBuilding().toString()); // show next floor
+        }
     }
+
 }

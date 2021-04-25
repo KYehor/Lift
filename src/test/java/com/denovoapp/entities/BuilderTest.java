@@ -16,12 +16,12 @@ public class BuilderTest {
 
     @Test
     public void createdBuild(){
-        Build build = builder.generateBuild();
-        assertThat(build.getLift()).isNotNull();
-        assertThat(build.getLift().getCurrentFloor()).isEqualTo(1);
-        assertThat(build.getFloors().size()).isLessThan(21);
-        assertThat(build.getFloors().size()).isGreaterThan(4);
-        build.getFloors().stream().forEach(floor -> {
+        Building building = builder.generateBuild();
+        assertThat(building.getLift()).isNotNull();
+        assertThat(building.getLift().getCurrentFloor()).isEqualTo(1);
+        assertThat(building.getFloors().size()).isLessThan(21);
+        assertThat(building.getFloors().size()).isGreaterThan(4);
+        building.getFloors().stream().forEach(floor -> {
             assertThat(floor.getPassengers().size()).isLessThan(11);
             assertThat(floor.getPassengers().size()).isGreaterThan(-1);
         });

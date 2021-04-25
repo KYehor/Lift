@@ -1,5 +1,6 @@
 package com.denovoapp.entities;
 
+import com.denovoapp.exceptions.LiftCapacityOrNotCorrectFloorException;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,7 +38,7 @@ public class LiftTest {
         Assertions.assertThat(result).isEqualTo(2);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = LiftCapacityOrNotCorrectFloorException.class)
     public void whenAddMoreThanCapacityOfLift(){
         passengers.add(passenger);
         Lift lift = new Lift(1, passengers, new Floor(1,new HashSet<>()),8);
@@ -46,7 +47,7 @@ public class LiftTest {
 
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = LiftCapacityOrNotCorrectFloorException.class)
     public void invalidPassengerFloor(){
         passengers.add(new Passenger(1,7));
         Lift lift = new Lift(5, passengers, new Floor(2,new HashSet<>()),8);
@@ -56,8 +57,8 @@ public class LiftTest {
     @Test
     public void willLiftUp(){
         Builder builder = new Builder();
-        Build build = builder.generateBuild();
-        Lift lift = build.getLift();
+        Building building = builder.generateBuild();
+        Lift lift = building.getLift();
         int beforeLiftMove = lift.getCurrentFloor().getNumber();
         lift.moveNextFloor();
         Assertions.assertThat(beforeLiftMove+1).isEqualTo(lift.getCurrentFloor().getNumber());

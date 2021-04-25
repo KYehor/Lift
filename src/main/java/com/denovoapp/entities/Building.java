@@ -2,12 +2,23 @@ package com.denovoapp.entities;
 
 import java.util.List;
 
-public class Build {
+/**
+ * Class Building with properties <b>floors</b>,<b>lift</b>.
+ *
+ * @author Yehor Kachur
+ * @version 1.0
+ */
+public class Building {
 
     private List<Floor> floors;
     private Lift lift;
 
-    public Build(List<Floor> floors, Lift lift) {
+    /**
+     * Constructor - Building
+     * @param floors - Building list of floors
+     * @param lift - Building lift
+     */
+    public Building(List<Floor> floors, Lift lift) {
         this.floors = floors;
         this.lift = lift;
     }
@@ -24,9 +35,7 @@ public class Build {
         return lift;
     }
 
-    public void setLift(Lift lift) {
-        this.lift = lift;
-    }
+    public void setLift(Lift lift) { this.lift = lift; }
 
     @Override
     public String toString() {
@@ -34,4 +43,5 @@ public class Build {
                 ", lift=" + lift +
                 '}';
     }
+
 }

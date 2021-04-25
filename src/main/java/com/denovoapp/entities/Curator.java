@@ -3,14 +3,35 @@ package com.denovoapp.entities;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Manager {
+import static com.denovoapp.entities.Builder.generateRandomNumber;
 
-    private final Lift lift;
+/**
+ * Class Curator with properties <b>lift</b>,<b>builder</b>,<b>build</b>.
+ * This class created for manage all processes in our application.
+ * @author Yehor Kachur
+ * @version 1.0
+ */
+public class Curator {
 
-    public Manager(Lift lift) {
-        this.lift = lift;
+    /**Field lift. **/
+    private Lift lift;
+    /**Field builder. **/
+    private Builder builder;
+    /**Field build. **/
+    private Building building;
+
+    /**
+     * We use this method to initialize instances of Builder,Build,Lift.
+     */
+    public void generateBuilderAndBuildingWithLift(){
+        builder = new Builder();
+        building = builder.generateBuild();
+        lift = building.getLift();
     }
 
+    /**
+     * We use this method to manage passengers in build.
+     */
     public void managementPassengers(){
         List<Passenger> passengersOut = lift.getPassengers().stream()
                 .filter(passenger -> lift.getCurrentFloor().getNumber() == passenger.getRequiredFloor())
@@ -31,11 +52,17 @@ public class Manager {
         });
     }
 
+    /**
+     * We use this method to get next floor for passenger.
+     */
     public int getNextFloorForPassenger(Lift lift){
         Floor lastFloor = getLastFloor(lift.getCurrentFloor());
-        return Builder.generateRandomNumber(1,lastFloor.getNumber(),lift.getCurrentFloor().getNumber());
+        return generateRandomNumber(1,lastFloor.getNumber(),lift.getCurrentFloor().getNumber());
     }
 
+    /**
+     * We use this method to get last floor for passenger.
+     */
     public Floor getLastFloor(Floor floor){
         if(floor.getNext() == null){
             return floor;
@@ -44,5 +71,23 @@ public class Manager {
         }
     }
 
+    public Builder getBuilder() { return builder; }
 
+    public void setBuilder(Builder builder) { this.builder = builder; }
+
+    public Building getBuilding() {
+        return building;
+    }
+
+    public void setBuilding(Building building) {
+        this.building = building;
+    }
+
+    public Lift getLift() {
+        return lift;
+    }
+
+    public void setLift(Lift lift) {
+        this.lift = lift;
+    }
 }
